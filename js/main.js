@@ -10,9 +10,12 @@ const searchStates = async searchText => {
 
     // Get matches to current text input
     let matches = states.filter(state => {
-        // Nota: gi por g:global i: insensitive
+        // Nota: gi por g:global para regresar todos los resultados
+                // no nada más 1,  i: insensitive
         const regex = new RegExp(`^${searchText}`, 'gi');
-        // Nota: Regresa object?????
+        // Nota: ¿¿Por qué Regresa object?????
+        // console.log(state.name.match(regex));
+
         return state.name.match(regex) || state.abbr.match(regex);
     });
 
@@ -24,7 +27,7 @@ const searchStates = async searchText => {
         //         al momento de borrar el contenido del Input una vez que se escribió
         matchList.innerHTML = ''
     }
-    // console.log(matches);
+    console.log(matches);
 
     // Show results in HTML
     outputHtml(matches);
@@ -53,6 +56,9 @@ const outputHtml = matches => {
     }
 };
 
+// Nota: input event se debe usar SIEMPRE para reaccionar a los cambios
+    // de un input, debido a que algunos cambios no son detectados por keyup
+    // Referencia: https://developer.mozilla.org/en-US/docs/Web/API/Document/keyup_event
 search.addEventListener('input', () => searchStates(search.value));
 
 
